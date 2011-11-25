@@ -11,7 +11,7 @@
 <cfsavecontent variable="variables.body">
 	<cfoutput>
 	<h2>#request.pluginConfig.getName()#</h2>
-	<!--- TODO: Implement code... --->
+	PluginID: #pluginID#
 	</cfoutput>
 </cfsavecontent>
 

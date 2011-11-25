@@ -2,13 +2,15 @@
 <plugin>
 	<name>SyntaxHighlighter</name>
 	<package>syntaxhl</package>
-	<directoryFormat>packageOnly</directoryFormat>
 	<loadPriority>5</loadPriority>
 	<version>0.1</version>
 	<provider>Tony Garcia</provider>
 	<providerURL>http://objectivebias.com</providerURL>
 	<category>Tag</category>
 	<settings />
-	<EventHandlers />
+	<EventHandlers>
+		<eventHandler event="onApplicationStart" component="eventhandlers.main" persist="true" />
+	</EventHandlers>
 	<DisplayObjects />
+	<directoryFormat>packageOnly</directoryFormat>
 </plugin>
