@@ -3,7 +3,7 @@
  --->
 
 <cfinclude template="plugin/config.cfm" />
-<cfhtmlhead text='<link href="/plugins/#request.pluginConfig.getDirectory()#/assets/styles/shadmin.css" rel="stylesheet" type="text/css" />' />
+<cfhtmlhead text='<link href="/plugins/#request.pluginConfig.getDirectory()#/assets/css/shadmin.css" rel="stylesheet" type="text/css" />' />
 <cfsilent>
 	<cfset updated = false />
 	<cfif structKeyExists(form,"action") and form.action eq "updateSettings">
@@ -61,6 +61,7 @@
 					<li><input type="radio" name="shTheme" value="Eclipse" id="eclipse" <cfif theme is "Eclipse"> checked</cfif>> Eclipse</li>
 					<li><input type="radio" name="shTheme" value="Emacs" id="emacs" <cfif theme is "Emacs"> checked</cfif>> Emacs</li>
 					<li><input type="radio" name="shTheme" value="FadeToGrey" id="fadetogrey" <cfif theme is "FadeToGrey"> checked</cfif>> Fade To Grey</li>
+					<li><input type="radio" name="shTheme" value="MD Ultra" id="midnight" <cfif theme is "MDUltra"> checked</cfif>> MD Ultra</li>
 					<li><input type="radio" name="shTheme" value="Midnight" id="midnight" <cfif theme is "Midnight"> checked</cfif>> Midnight</li>
 					<li><input type="radio" name="shTheme" value="RDark" id="rdark" <cfif theme is "RDark"> checked</cfif>> R Dark</li>
 				</ul>

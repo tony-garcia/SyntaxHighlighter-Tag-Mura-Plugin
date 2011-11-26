@@ -9,6 +9,7 @@
 	<cffunction name="onRenderStart" access="public" output="false" returntype="any">
 		<cfargument name="$">
 		<cfset pluginConfig.addToHTMLHeadQueue("includes/htmlhead.cfm") />
+		<cfset pluginConfig.addToHTMLFootQueue("includes/htmlfoot.cfm") />
 	</cffunction>
 
 	<cffunction name="onRenderEnd" access="public" output="false" returntype="void">
