@@ -9,7 +9,7 @@
 	<category>Tag</category>
 	<settings />
 	<EventHandlers>
-		<eventHandler event="onApplicationStart" component="eventhandlers.main" persist="true" />
+		<eventHandler event="onApplicationLoad" component="eventhandlers.main" persist="true" />
 	</EventHandlers>
 	<DisplayObjects />
 	<directoryFormat>packageOnly</directoryFormat>

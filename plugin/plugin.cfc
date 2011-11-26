@@ -9,7 +9,8 @@
 	</cffunction>
 
 	<cffunction name="install" returntype="void" access="public" output="false">
-		<!--- TODO: Auto-generated method stub --->
+		<cfset pluginConfig.setCustomSetting("shLanguages","coldfusion,as3,css,jscript,sql,xml") />
+		<cfset pluginConfig.setCustomSetting("shTheme","Default") />
 	</cffunction>
 
 	<cffunction name="update" returntype="void" access="public" output="false">
