@@ -1,5 +1,6 @@
 ﻿<cfoutput>
 <script type="text/javascript">
-	SyntaxHighlighter.all();
+	brushPath = '#pluginPath#assets/syntaxhighlighter/scripts/';
 </script>
+<script type="text/javascript" src="#pluginPath#assets/js/shLoader.js"></script>
 </cfoutput>

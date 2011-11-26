@@ -58,11 +58,7 @@
 	</cffunction>
 	
 	<cffunction name="initSettings" access="public" returntype="void" output="false">
-		<cfset var shLanguages = pluginConfig.getCustomSetting( "shLanguages","" ) />
 		<cfset var shTheme = pluginConfig.getCustomSetting( "shTheme","" ) />
-		<cfif shLanguages eq "">
-			<cfset pluginConfig.setCustomSetting("shLanguages","coldfusion,as3,css,jscript,sql,xml") />
-		</cfif>
 		<cfif shTheme eq "">
 			<cfset pluginConfig.setCustomSetting("shTheme","Default") />
 		</cfif>
