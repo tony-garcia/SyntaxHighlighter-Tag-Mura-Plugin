@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-	<name>SyntaxHighlighter</name>
+	<name>SyntaxHighlighter Tag</name>
 	<package>syntaxhl</package>
 	<loadPriority>5</loadPriority>
 	<version>0.1</version>
