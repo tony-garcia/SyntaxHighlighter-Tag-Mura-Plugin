@@ -28,12 +28,17 @@
 		<cfset var highlightedCode = "" />
 		<cfset var noMoreMatches = false />
 		<cfset var startPosition = 1 />
-		<cfset var language = "" />
+		<cfset var attributes = "" />
+		<cfset var title = "" />
+		<cfset var tagAttribs = structNew() />
 		<cfset var startMatch = "" />
 		<cfset var endMatch = "" />
+		<cfset var attributeList = "lang,title,highlight,auto-links,class-name,collapse,first-line,gutter,html-script,smart-tabs,tab-size,toolbar" />
+		<cfset var thisAttrib = "" />
+		<cfset var pretag = "" />
 		
 		<cfloop condition="noMoreMatches is false">
-			<cfset startMatch = reFindNoCase("\[code=([-_[:alnum:]]+)\]", arguments.contentBody, startPosition, true) />
+			<cfset startMatch = reFindNoCase("\[code([ ]*.+?)\]", arguments.contentBody, startPosition, true) />
 			<cfif startMatch.len[1] eq 0>
 				<cfset noMoreMatches = true />
 			<cfelse>
@@ -41,13 +46,31 @@
 				<cfset endMatch = findNoCase("[/code]",arguments.contentBody,startMatch.pos[1] + startMatch.len[1]) />
 				<!--- get code body between (and including) [code/] tags --->
 				<cfset codeBody = mid(arguments.contentBody,startMatch.pos[1],(endMatch - startMatch.pos[1]) + 7) />
-				<!--- get the syntax language specified --->
-				<cfset language = mid(arguments.contentBody, startMatch.pos[2], startMatch.len[2]) />
+				<!--- get the tag attributes --->
+				<cfset attributes = mid(arguments.contentBody, startMatch.pos[2], startMatch.len[2]) />
+				<!--- parse the attributes --->
+				<cfloop list="#attributeList#" index="thisAttrib">
+					<cfset tagAttribs[thisAttrib] = reFindNoCase( "#thisAttrib#='[^']+'[ ]*",attributes,1,true ) />
+					<cfif tagAttribs[thisAttrib]["pos"][1] neq 0>
+						<cfset tagAttribs[thisAttrib] = listLast( mid( attributes,tagAttribs[thisAttrib]["pos"][1],tagAttribs[thisAttrib]["len"][1] ),"=" ) />
+						<!--- remove quotes from attribute value --->
+						<cfset tagAttribs[thisAttrib] = trim(replace( tagAttribs[thisAttrib],"'","","all" )) />
+					<cfelse>
+						<cfset structDelete( tagAttribs,thisAttrib ) />	
+					</cfif>
+				</cfloop>
+				<!---<cfdump var="#tagAttribs#" abort="true" />--->
+				<cfset title = structKeyExists( tagAttribs,"title" ) ? tagAttribs["title"] : "" />
 				<!--- strip <br /> and <p> tags --->
 				<cfset highlightedCode = replaceNoCase(codeBody,"<br />","","all") />
 				<cfset highlightedCode = replaceList(highlightedCode,"<p>,</p>,<p></p>,<p> </p>", break) />
 				<!--- replace [code] tags with <pre> tags --->
-				<cfset highlightedCode = rereplaceNoCase(highlightedCode,"\[code=([-_[:alnum:]]+)\]",'<pre class="brush: #language#">',"one") />
+				<cfset pretag = buildPretag( tagAttribs ) />
+				<!---<cfset pretag = '<pre class="brush: #language#">' />--->
+				<cfif len(title)>
+					<cfset pretag = replace( pretag,">",' title="#title#">',"one" ) />
+				</cfif>
+				<cfset highlightedCode = rereplaceNoCase(highlightedCode,"\[code([ ]*.+?)\]",pretag,"one") />
 				<cfset highlightedCode = replaceNoCase(highlightedCode,"[/code]","</pre>","one") />
 				<!--- put the processed code block back into the content body --->
 				<cfset retStr = replaceNoCase(retStr,codeBody,highlightedCode,"all") />
@@ -55,6 +78,28 @@
 			</cfif>
 		</cfloop>
 		<cfreturn retStr />
+	</cffunction>
+	
+	<cffunction name="buildPretag" access="private" output="false" returntype="String">
+		<cfargument name="tagAttribs" type="struct" required="true" />
+		
+		<cfset var  thisAttrib = "" />
+		<cfset var language = arguments.tagAttribs["lang"] />
+		<cfset var pretag = '<pre class="brush: #language#' />
+		<cfif structKeyExists( arguments.tagAttribs,"highlight" ) and listLen( arguments.tagAttribs.highlight ) gt 0>
+			<cfif listLen( arguments.tagAttribs["highlight"] ) eq 1>
+				<cfset pretag = listAppend( pretag," highlight: #arguments.tagAttribs.highlight#",";" ) />
+			<cfelse>
+				<cfset pretag = listAppend( pretag," highlight: [#arguments.tagAttribs.highlight#]",";" ) />
+			</cfif>
+		</cfif>
+		<cfloop collection="#arguments.tagAttribs#" item="thisAttrib">
+			<cfif not listFindNoCase( "lang,title,highlight",thisAttrib )>
+				<cfset pretag = listAppend( pretag," #thisAttrib#: #arguments.tagAttribs[thisAttrib]#",";" ) />
+			</cfif>
+		</cfloop>
+		<cfset pretag &= '">' />
+		<cfreturn pretag />
 	</cffunction>
 	
 	<cffunction name="initSettings" access="public" returntype="void" output="false">
