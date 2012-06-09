@@ -60,7 +60,11 @@
 					</cfif>
 				</cfloop>
 				<!---<cfdump var="#tagAttribs#" abort="true" />--->
-				<cfset title = structKeyExists( tagAttribs,"title" ) ? tagAttribs["title"] : "" />
+				<cfif structKeyExists( tagAttribs,"title" )>
+					<cfset title = tagAttribs.title>
+				<cfelse>
+					<cfset title = "">
+				</cfif>
 				<!--- strip <br /> and <p> tags --->
 				<cfset highlightedCode = replaceNoCase(codeBody,"<br />","","all") />
 				<cfset highlightedCode = replaceList(highlightedCode,"<p>,</p>,<p></p>,<p> </p>", break) />
