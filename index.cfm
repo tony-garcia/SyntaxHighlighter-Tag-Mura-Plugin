@@ -9,37 +9,345 @@
 		<cfset updated = true />
 		<cfset request.pluginConfig.setCustomSetting( "shTheme",form.shTheme ) />
 	</cfif>
-	<cfset shLanguages = request.pluginConfig.getCustomSetting( "shLanguages" ) />
+	<!---<cfset shLanguages = request.pluginConfig.getCustomSetting( "shLanguages" ) />--->
 	<cfset theme = request.pluginConfig.getCustomSetting( "shTheme" ) />
 </cfsilent>
+<cfset request.pluginConfig.addToHTMLHeadQueue("includes/htmlhead.cfm") />
 
 <cfsavecontent variable="variables.body">
 	<cfoutput>
+	<style type="text/css">
+		.ui-widget-content a {
+		color: ##FF3A00;
+		}
+	</style>
 	<h2>#request.pluginConfig.getName()#</h2>
-	<cfif updated>
-		<div class="success">Settings Updated</div>
-	</cfif>
-	<form method="post">
-		<input type="hidden" name="action" value="updateSettings" />		
-		<dl class="oneColumn">
-			<dt class="first">Choose SyntaxHighligher Theme:</dt>
-			<dd>
-				<ul>
-					<li><label for="default"><input type="radio" name="shTheme" value="Default" id="default" <cfif theme is "Default"> checked</cfif>> Default</label></li>
-					<li><label for="django"><input type="radio" name="shTheme" value="Django" id="django" <cfif theme is "Django"> checked</cfif>> Django</label></li>
-					<li><label for="eclipse"><input type="radio" name="shTheme" value="Eclipse" id="eclipse" <cfif theme is "Eclipse"> checked</cfif>> Eclipse</label></li>
-					<li><label for="emacs"><input type="radio" name="shTheme" value="Emacs" id="emacs" <cfif theme is "Emacs"> checked</cfif>> Emacs</label></li>
-					<li><label for="fadetogrey"><input type="radio" name="shTheme" value="FadeToGrey" id="fadetogrey" <cfif theme is "FadeToGrey"> checked</cfif>> Fade To Grey</label></li>
-					<li><label for="mdultra"><input type="radio" name="shTheme" value="MDUltra" id="mdultra" <cfif theme is "MDUltra"> checked</cfif>> MD Ultra</label></li>
-					<li><label for="midnight"><input type="radio" name="shTheme" value="Midnight" id="midnight" <cfif theme is "Midnight"> checked</cfif>> Midnight</label></li>
-					<li><label for="rdark"><input type="radio" name="shTheme" value="RDark" id="rdark" <cfif theme is "RDark"> checked</cfif>> R Dark</label></li>
-				</ul>
-			</dd>
-		</dl>
-		<div id="actionButtons">
-			<input type="submit" class="submit" value="Save Settings"/>
+	<div class="tabs initActiveTab" style="display:none">
+		<ul>
+			<li><a href="##tabSettings" onclick="return false;"><span>Settings</span></a></li>
+			<li><a href="##tabDocumentation" onclick="return false;"><span>Documentation</span></a></li>
+		</ul>
+		<div id="tabSettings">
+			<h3>Settings</h3>
+			<cfif updated>
+				<div class="success">Settings Updated</div>
+			</cfif>
+			<form method="post">
+				<input type="hidden" name="action" value="updateSettings" />		
+				<dl class="oneColumn">
+					<dt class="first"><label for="selTheme">Choose SyntaxHighligher Theme:</label></dt>
+					<dd>
+						<select name="shTheme" id="selTheme">
+							<option value="default"<cfif theme is "default"> selected</cfif>>Default</option>
+							<option value="django"<cfif theme is "django"> selected</cfif>>Django</option>
+							<option value="eclipse"<cfif theme is "eclipse"> selected</cfif>>Eclipse</option>
+							<option value="emacs"<cfif theme is "emacs"> selected</cfif>>Emacs</option>
+							<option value="fadetogrey"<cfif theme is "fadetogrey"> selected</cfif>>Fade To Grey</option>
+							<option value="mdultra"<cfif theme is "mdultra"> selected</cfif>>MD Ultra</option>
+							<option value="midnight"<cfif theme is "midnight"> selected</cfif>>Midnight</option>
+							<option value="rdark"<cfif theme is "rdark"> selected</cfif>>R Dark</option>
+						</select>
+						<p></p>
+						<strong>Preview:</strong><br />
+						<div id="themePreview">		
+							<pre class="brush: cf">
+						&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+							&lt;cfargument name=&quot;$&quot;&gt;
+							&lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+							&lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+						&lt;/cffunction&gt;
+						
+						&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+							&lt;cfargument name=&quot;$&quot;&gt;
+							&lt;cfset var output = &quot;&quot; /&gt;
+							&lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+							&lt;cfset output = highlightCode( output ) /&gt;
+							&lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+						&lt;/cffunction&gt;
+							</pre>							
+						</div>
+					</dd>
+				</dl>
+				<div id="actionButtons">
+					<input type="submit" class="submit" value="Save Settings"/>
+				</div>
+			</form>			
 		</div>
-	</form>
+		<div id="tabDocumentation">
+			<h3>Documentation</h3>
+			
+			<p>The SyntaxHighlighter Tag plugin allows you to easily include code snippets in your content using <a href="http://alexgorbatchev.com/SyntaxHighlighter/">Alex Gorbatchev's 
+			SyntaxHighligher 3.083 Script.</a></p>
+			<p>The tag can be used in pages (body and summary sections) as well as in Mura components or pretty much any display object (even within other plugins).</p>
+			<p>The format for the SyntaxHighlighter tag is as follows:
+			<p>[code lang='{language}' <em>title='{title}' highlight='{list of highlighted lines}' collapse='{true|false}' first-line='{first line number}' gutter='{true|false}' 
+			toolbar='{true|false}' class-name='{class name}' html-script='{true|false}' smart-tabs='{true|false}' tab-size='{tab size}' auto-links='{true|false}'</em>]</p>
+			<p>IMPORTANT: Attribute values <u>must</u> be surrounded by <strong>single</strong> quotes.</p>
+			<h4>Tag Attributes</h4>
+			<p>Also check out the <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/">SyntaxHighlighter Manual</a> for more info. This version of the 
+			SyntaxHighlighter script includes various improvements over previous versions, such as dynamic script (brush) loading (which is handled by the plugin), improved code
+			selecting and copy-to-clipboard, and more. <a href="http://alexgorbatchev.com/SyntaxHighlighter/whatsnew.html">More details here.</a></p>
+			<table class="mura-table-grid stripe">
+			  <tr>
+			    <th scope="col">Attribute</th>
+			    <th scope="col">Required?</th>
+			    <th scope="col">Default*</th>
+			    <th scope="col" class="varWidth">Explanation</th>
+			  </tr>
+			  <tr>
+			    <td>lang</td>
+			    <td>yes</td>
+			    <td>&nbsp;</td>
+			    <td class="varWidth">Language brush to use. <a href="##">See list of abbreviations for languages.</a>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td>title</td>
+			    <td>no</td>
+			    <td>&nbsp;</td>
+			    <td class="varWidth">Title of the script.</td>
+			  </tr>
+			  <tr>
+			    <td>highlight</td>
+			    <td>no</td>
+			    <td>&nbsp;</td>
+			    <td class="varWidth">Line number to highlight in the script.(comma-delimited list)</td>
+			  </tr>
+			  <tr>
+			    <td>collapse</td>
+			    <td>no</td>
+			    <td>false</td>
+			    <td class="varWidth">Whether to initially show the code block collapsed. If so, a link saying "expand source" or the code
+					title (if given) will display which will show the code when clicked on.</td>
+			  </tr>
+			  <tr>
+			    <td>first-line</td>
+			    <td>no</td>
+			    <td>1</td>
+			    <td class="varWidth">Line number for the first line of the code block.</td>
+			  </tr>
+			  <tr>
+			    <td>gutter</td>
+			    <td>no</td>
+			    <td>true</td>
+			    <td class="varWidth">Allows you to turn gutter with line numbers on and off.</td>
+			  </tr>
+			  <tr>
+			    <td>toolbar</td>
+			    <td>no</td>
+			    <td>true</td>
+			    <td class="varWidth">Toggles toolbar (the question mark icon in the top right which shows info on Syntaxhighlighter when clicked on) on/off.</td>
+			  </tr>
+			  <tr>
+			    <td>class-name</td>
+			    <td>no</td>
+			    <td></td>
+			    <td class="varWidth">Allows you to add a custom class (or multiple classes) to every highlighter element that will be created on the page.</td>
+			  </tr>
+			  <tr>
+			    <td>html-script</td>
+			    <td>no</td>
+			    <td>false</td>
+			    <td class="varWidth">Allows you to highlight a mixture of HTML/XML code and a script which is very common in web development. Setting this value 
+				to true requires that you have shBrushXml.js loaded and that the brush you are using supports this feature.</td>
+			  </tr>
+			  <tr>
+			    <td>smart-tabs</td>
+			    <td>no</td>
+			    <td>true</td>
+			    <td class="varWidth">Allows you to turn smart tabs feature on and off. The tabs are converted to spaces and smart tabs are used to preserve column 
+				layout with assumption that each column is a fixed number of spaces (as determined by the tab-size) parameter.</td>
+			  </tr>
+			  <tr>
+			    <td>tab-size</td>
+			    <td>no</td>
+			    <td>4</td>
+			    <td class="varWidth">Allows you to adjust tab size.</td>
+			  </tr>
+			  <tr>
+			    <td>auto-links</td>
+			    <td>no</td>
+			    <td>true</td>
+			    <td class="varWidth">Allows you to turn detection of links in the highlighted element on and off. If the option is turned off, URLs won't be clickable.</td>
+			  </tr>
+			</table>
+			<p>* defaults can be changed globally in the tag settings and overridden for each code block by using the appropriate tag attributes.</p>
+			<h3>Examples</h3>
+			<p><strong>Basic Example</strong>: Here is an basic example in which only the language is designated in the [code/] tag (default options, "lang" is the only required attribute). 
+			Paste any code in between the [code] start and end tags directly into the content editor (without going into html mode). Mura's CKEditor will convert angle brackets to html 
+			entities, but we want that. For example:</p>
+	<pre>
+[code lang='cf']
+&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+  &lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+&lt;/cffunction&gt;
+
+&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset var output = &quot;&quot; /&gt;
+  &lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+  &lt;cfset output = highlightCode( output ) /&gt;
+  &lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+&lt;/cffunction&gt;		
+[/code]
+	</pre><br />
+			
+			<p>This will render like so in the front end:</p>
+			
+			<pre class="brush: cf">
+		&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+			&lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+		&lt;/cffunction&gt;
+		
+		&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset var output = &quot;&quot; /&gt;
+			&lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+			&lt;cfset output = highlightCode( output ) /&gt;
+			&lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+		&lt;/cffunction&gt;
+			</pre>
+			
+			<p><strong>Line Highlighting</strong>: By specifying line numbers in the "higlight" attribute, you can highlight specific lines:</p>
+	<pre>
+[code lang='cf' highlight='3,10']
+&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+  &lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+&lt;/cffunction&gt;
+
+&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset var output = &quot;&quot; /&gt;
+  &lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+  &lt;cfset output = highlightCode( output ) /&gt;
+  &lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+&lt;/cffunction&gt;		
+[/code]
+	</pre>
+			<p>Lines 3 and 10 will be highlighted in the output.</p>
+			<pre class="brush: cf; highlight: [3,10]">
+		&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+			&lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+		&lt;/cffunction&gt;
+		
+		&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset var output = &quot;&quot; /&gt;
+			&lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+			&lt;cfset output = highlightCode( output ) /&gt;
+			&lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+		&lt;/cffunction&gt;
+			</pre>
+		
+			<p><strong>Collapsed Code Blocks</strong>: By specifying collapse='true' you can have code snippets which are collapsed by default and can be expanded by clicking on some
+			text (either the title of the code block, if specified, or default text:</p>
+	<pre>
+[code lang='cf' highlight='3' title='OnRenderStart Code' collapse='true']
+&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+  &lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+&lt;/cffunction&gt;
+[/code]
+
+[code lang='cf' collapse='true']
+&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset var output = &quot;&quot; /&gt;
+  &lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+  &lt;cfset output = highlightCode( output ) /&gt;
+  &lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+&lt;/cffunction&gt;		
+[/code]
+	</pre>
+		
+			<pre class="brush: cf; highlight: 3; title: 'OnRenderStart Code';collapse: true">
+		&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+			&lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+		&lt;/cffunction&gt;
+			</pre>
+			<pre class="brush: cf;collapse: true">
+		&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset var output = &quot;&quot; /&gt;
+			&lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+			&lt;cfset output = highlightCode( output ) /&gt;
+			&lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+		&lt;/cffunction&gt;
+			</pre>
+		
+			<p><strong>Other Options</strong>: You can also control things like the first line number and whether the gutter with line numbers or toolbar shows at all:</p>
+	<pre>
+[code lang='cf' highlight='3' title='OnRenderStart Code' first-line='6']
+&lt;!--- The first line is 6 instead of 1 ---&gt;
+&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+  &lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+&lt;/cffunction&gt;
+[/code]
+
+[code lang='cf' gutter='false' toolbar='false']
+&lt;!--- No line numbers and no clickable question mark icon ('toolbar') on the right side ---&gt;
+&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+  &lt;cfargument name=&quot;$&quot;&gt;
+  &lt;cfset var output = &quot;&quot; /&gt;
+  &lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+  &lt;cfset output = highlightCode( output ) /&gt;
+  &lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+&lt;/cffunction&gt;		
+[/code]
+	</pre>
+		
+			<pre class="brush: cf; highlight: 3; title: 'OnRenderStart Code';first-line: 6">
+		&lt;!--- The first line is 6 instead of 1 ---&gt;
+		&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
+			&lt;cfset pluginConfig.addToHTMLFootQueue(&quot;includes/htmlfoot.cfm&quot;) /&gt;
+		&lt;/cffunction&gt;
+			</pre>
+			<pre class="brush: cf;gutter: false;toolbar: false">
+		&lt;!--- No line numbers and no clickable question mark icon ('toolbar') on the right side ---&gt;
+		&lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
+			&lt;cfargument name=&quot;$&quot;&gt;
+			&lt;cfset var output = &quot;&quot; /&gt;
+			&lt;cfset output = $.event( &quot;__MuraResponse__&quot; )&gt;
+			&lt;cfset output = highlightCode( output ) /&gt;
+			&lt;cfset $.event( &quot;__MuraResponse__&quot;, output ) /&gt
+		&lt;/cffunction&gt;
+			</pre>
+		
+		
+			<h3>Important</h3>
+			<p>Please follow the syntax of the examples above exactly. Do not put spaces after or before the square brackets, leave one space between each attribute, and surround attribute
+			values with <strong>single</strong> quotes.</p>			
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		(function($){
+			// theme preview css switcher
+			$('##selTheme').on('change',function(){
+				var selectedTheme = $(this).val();
+				$('link##theme').attr('href','assets/syntaxhighlighter/styles/shCore' + selectedTheme + '.css')
+			});
+		})(jQuery);
+		brushPath = 'assets/syntaxhighlighter/scripts/';
+		//SyntaxHighlighter.defaults['gutter'] = false;
+	</script>
+	<script type="text/javascript" src="assets/js/shLoader.js"></script>	
 	</cfoutput>
 </cfsavecontent>
 

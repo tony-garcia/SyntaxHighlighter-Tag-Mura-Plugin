@@ -6,19 +6,19 @@
 		<cfset pluginConfig.addEventhandler(this) />
 	</cffunction>
 	
-	<cffunction name="onRenderStart" access="public" output="false" returntype="any">
-		<cfargument name="$">
-		<cfset pluginConfig.addToHTMLHeadQueue("includes/htmlhead.cfm") />
-		<cfset pluginConfig.addToHTMLFootQueue("includes/htmlfoot.cfm") />
-	</cffunction>
+<cffunction name="onRenderStart" access="public" output="false" returntype="any">
+	<cfargument name="$">
+	<cfset pluginConfig.addToHTMLHeadQueue("includes/htmlhead.cfm") />
+	<cfset pluginConfig.addToHTMLFootQueue("includes/htmlfoot.cfm") />
+</cffunction>
 
-	<cffunction name="onRenderEnd" access="public" output="false" returntype="void">
-		<cfargument name="$">
-		<cfset var output = "" />
-		<cfset output = $.event( "__MuraResponse__" )>
-		<cfset output = highlightCode( output ) />
-		<cfset $.event( "__MuraResponse__", output ) />
-	</cffunction>
+<cffunction name="onRenderEnd" access="public" output="false" returntype="void">
+	<cfargument name="$">
+	<cfset var output = "" />
+	<cfset output = $.event( "__MuraResponse__" )>
+	<cfset output = highlightCode( output ) />
+	<cfset $.event( "__MuraResponse__", output ) />
+</cffunction>
 	
 	<cffunction name="highlightCode" access="private" returntype="any" output="false">
 		<cfargument name="contentBody" required="true" />
