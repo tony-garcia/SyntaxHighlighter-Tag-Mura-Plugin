@@ -9,9 +9,6 @@
 	<cfif structKeyExists( shConfig,"gutter" ) and shConfig["gutter"] neq "true">
 		SyntaxHighlighter.defaults['gutter'] = #shConfig["gutter"]#;
 	</cfif>
-	<cfif structKeyExists( shConfig,"toolbar" ) and shConfig["toolbar"] neq "true">
-		SyntaxHighlighter.defaults['toolbar'] = #shConfig["toolbar"]#;
-	</cfif>
 	<cfif structKeyExists( shConfig,"html-script" ) and shConfig["html-script"] neq "false">
 		SyntaxHighlighter.defaults['html-script'] = #shConfig["html-script"]#;
 	</cfif>

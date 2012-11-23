@@ -8,7 +8,6 @@
 <cfset shConfig = {
 	'collapse' = form.collapse,
 	'gutter' = form.gutter,
-	'toolbar' = form.toolbar,
 	'html-script' = form.htmlScript,
 	'smart-tabs' = form.smartTabs,
 	'tab-size' = form.tabSize,

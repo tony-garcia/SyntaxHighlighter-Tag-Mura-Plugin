@@ -5,7 +5,7 @@ SyntaxHighligher 3.083 Script.</a></p>
 <p>The tag can be used in pages (body and summary sections) as well as in Mura components or pretty much any display object (even within other plugins).</p>
 <p>The format for the SyntaxHighlighter tag is as follows:
 <p>[code lang='{language}' <em>title='{title}' highlight='{list of highlighted lines}' collapse='{true|false}' first-line='{first line number}' gutter='{true|false}' 
-toolbar='{true|false}' class-name='{class name}' html-script='{true|false}' smart-tabs='{true|false}' tab-size='{tab size}' auto-links='{true|false}'</em>]</p>
+class-name='{class name}' html-script='{true|false}' smart-tabs='{true|false}' tab-size='{tab size}' auto-links='{true|false}'</em>]</p>
 <p>IMPORTANT: Attribute values <u>must</u> be surrounded by <strong>single</strong> quotes.</p>
 <h4>Tag Attributes</h4>
 <p>Also check out the <a href="http://alexgorbatchev.com/SyntaxHighlighter/manual/configuration/">SyntaxHighlighter Manual</a> for more info. This version of the 
@@ -55,12 +55,6 @@ selecting and copy-to-clipboard, and more. <a href="http://alexgorbatchev.com/Sy
     <td>no</td>
     <td>true</td>
     <td class="varWidth">Allows you to turn gutter with line numbers on and off.</td>
-  </tr>
-  <tr>
-    <td>toolbar</td>
-    <td>no</td>
-    <td>true</td>
-    <td class="varWidth">Toggles toolbar (the question mark icon in the top right which shows info on Syntaxhighlighter when clicked on) on/off.</td>
   </tr>
   <tr>
     <td>class-name</td>
@@ -213,7 +207,7 @@ text (either the title of the code block, if specified, or default text:</p>
 &lt;/cffunction&gt;
 </pre><br />
 			
-<p><strong>Other Options</strong>: You can also control things like the first line number and whether the gutter with line numbers or toolbar shows at all:</p>
+<p><strong>Other Options</strong>: You can also control things like the first line number and whether the gutter with line numbers shows at all:</p>
 <pre>
 [code lang='cf' highlight='3' title='OnRenderStart Code' first-line='6']
 &lt;!--- The first line is 6 instead of 1 ---&gt;
@@ -224,8 +218,8 @@ text (either the title of the code block, if specified, or default text:</p>
 &lt;/cffunction&gt;
 [/code]
 
-[code lang='cf' gutter='false' toolbar='false']
-&lt;!--- No line numbers and no clickable question mark icon ('toolbar') on the right side ---&gt;
+[code lang='cf' gutter='false']
+&lt;!--- No line numbers ---&gt;
 &lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
   &lt;cfargument name=&quot;$&quot;&gt;
   &lt;cfset var output = &quot;&quot; /&gt;
@@ -245,8 +239,8 @@ text (either the title of the code block, if specified, or default text:</p>
 &lt;/cffunction&gt;
 </pre><br />
 
-<pre class="brush: cf;gutter: false;toolbar: false">
-&lt;!--- No line numbers and no clickable question mark icon ('toolbar') on the right side ---&gt;
+<pre class="brush: cf;gutter: false;">
+&lt;!--- No line numbers ---&gt;
 &lt;cffunction name=&quot;onRenderEnd&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;void&quot;&gt;
 	&lt;cfargument name=&quot;$&quot;&gt;
 	&lt;cfset var output = &quot;&quot; /&gt;

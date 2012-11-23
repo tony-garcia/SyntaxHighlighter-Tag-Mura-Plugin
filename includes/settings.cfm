@@ -62,13 +62,6 @@
 			<label class="radio inline" for="rdShowGutterFalse"><input type="radio" id="rdShowGutterFalse" name="gutter" value="false"<cfif shConfig["gutter"] eq "false"> checked</cfif> /> No</label>
 		</dd>
 		<dt>
-			Show SyntaxHighlighter Info Tooltip ('Toolbar'):
-		</dt>
-		<dd>
-			<label class="radio inline" for="rdShowToolbarTrue"><input type="radio" id="rdShowToolbarTrue" name="toolbar" value="true"<cfif shConfig["toolbar"] eq "true"> checked</cfif> /> Yes</label>
-			<label class="radio inline" for="rdShowToolbarFalse"><input type="radio" id="rdShowToolbarFalse" name="toolbar" value="false"<cfif shConfig["toolbar"] eq "false"> checked</cfif> /> No</label>
-		</dd>
-		<dt>
 			Enable HTML-Script Highlighting (not all brushes support this feature):
 		</dt>
 		<dd>

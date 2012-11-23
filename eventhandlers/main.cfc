@@ -41,7 +41,7 @@
 		<cfset var tagAttribs = structNew() />
 		<cfset var startMatch = "" />
 		<cfset var endMatch = "" />
-		<cfset var attributeList = "lang,title,highlight,auto-links,class-name,collapse,first-line,gutter,html-script,smart-tabs,tab-size,toolbar" />
+		<cfset var attributeList = "lang,title,highlight,auto-links,class-name,collapse,first-line,gutter,html-script,smart-tabs,tab-size" />
 		<cfset var thisAttrib = "" />
 		<cfset var pretag = "" />
 		
@@ -121,7 +121,6 @@
 			<cfset shConfig = {
 				'collapse' = "false",
 				'gutter' = "true",
-				'toolbar' = "true",
 				'html-script' = "false",
 				'smart-tabs' = "true",
 				'tab-size' = "4",
