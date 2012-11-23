@@ -6,19 +6,27 @@
 		<cfset pluginConfig.addEventhandler(this) />
 	</cffunction>
 	
-<cffunction name="onRenderStart" access="public" output="false" returntype="any">
-	<cfargument name="$">
-	<cfset pluginConfig.addToHTMLHeadQueue("includes/htmlhead.cfm") />
-	<cfset pluginConfig.addToHTMLFootQueue("includes/htmlfoot.cfm") />
-</cffunction>
-
-<cffunction name="onRenderEnd" access="public" output="false" returntype="void">
-	<cfargument name="$">
-	<cfset var output = "" />
-	<cfset output = $.event( "__MuraResponse__" )>
-	<cfset output = highlightCode( output ) />
-	<cfset $.event( "__MuraResponse__", output ) />
-</cffunction>
+	<cffunction name="onSiteRequestStart" access="public" returntype="void" output="false">
+		<cfargument name="$" type="any" />
+		<!--- make sure settings are always available --->
+		<cfif structIsEmpty( pluginConfig.getCustomSetting( "shConfig",structNew() ) ) or structIsEmpty( pluginConfig.getCustomSetting( "shConfig",structNew() ) )>
+			<cfset initSettings() />
+		</cfif>
+	</cffunction>
+	
+	<cffunction name="onRenderStart" access="public" output="false" returntype="any">
+		<cfargument name="$">
+		<cfset pluginConfig.addToHTMLHeadQueue("includes/htmlhead.cfm") />
+		<cfset pluginConfig.addToHTMLFootQueue("includes/htmlfoot.cfm") />
+	</cffunction>
+	
+	<cffunction name="onRenderEnd" access="public" output="false" returntype="void">
+		<cfargument name="$">
+		<cfset var output = "" />
+		<cfset output = $.event( "__MuraResponse__" )>
+		<cfset output = highlightCode( output ) />
+		<cfset $.event( "__MuraResponse__", output ) />
+	</cffunction>
 	
 	<cffunction name="highlightCode" access="private" returntype="any" output="false">
 		<cfargument name="contentBody" required="true" />
@@ -107,10 +115,31 @@
 	</cffunction>
 	
 	<cffunction name="initSettings" access="public" returntype="void" output="false">
-		<cfset var shTheme = pluginConfig.getCustomSetting( "shTheme","" ) />
-		<cfif shTheme eq "">
-			<cfset pluginConfig.setCustomSetting("shTheme","Default") />
+		<cfset var shConfig = pluginConfig.getCustomSetting( "shConfig",structNew() ) />
+		<cfset var shStrings = pluginConfig.getCustomSetting( "shStrings",structNew() ) />
+		<cfif structIsEmpty( shConfig )>
+			<cfset shConfig = {
+				'collapse' = "false",
+				'gutter' = "true",
+				'toolbar' = "true",
+				'html-script' = "false",
+				'smart-tabs' = "true",
+				'tab-size' = "4",
+				'auto-links' = "true"
+			} />
+			<cfset pluginConfig.setCustomSetting("shConfig",shConfig) />
 		</cfif>
+		<cfif structIsEmpty( shStrings )>
+			<cfset shStrings = {
+				'expandSource' = "+ expand source",
+				'help' = "?",
+				'alert' = "SyntaxHighlighter\n\n",
+				'noBrush' = "Can't find brush for:",
+				'brushNotHtmlScript' = "Brush wasn't made for html-script option:"
+			} />
+			<cfset pluginConfig.setCustomSetting("shStrings",shStrings) />
+		</cfif>
+
 	</cffunction>
 
 </cfcomponent>
