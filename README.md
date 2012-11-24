@@ -1,6 +1,6 @@
 SyntaxHighlighter Tag Mura Plugin
 =====================
-This plugin enables code syntax highlighting within Mura content using [Alex Gorbatchev's SyntaxHighlighter 3.083 script](http://alexgorbatchev.com/SyntaxHighlighter/).
+This plugin for [Mura CMS](http://www.getmura.com) enables code syntax highlighting within Mura content using [Alex Gorbatchev's SyntaxHighlighter 3.083 script](http://alexgorbatchev.com/SyntaxHighlighter/).
 
 Usage
 --------------------
