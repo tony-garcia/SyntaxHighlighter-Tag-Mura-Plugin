@@ -353,10 +353,6 @@ values with <strong>single</strong> quotes.</p>
 		<td>Ruby</td>
 	</tr>
 	<tr>
-		<td></td>
-		<td></td>
-	</tr>
-	<tr>
 		<td>sass, scss</td>
 		<td>SASS</td>
 	</tr>

@@ -15,13 +15,18 @@
 	<cflocation url="/" addtoken="false" />
 </cfif>
 <cfinclude template="../plugin/config.cfm" />
-<cfset form.tabSize = isNumeric(form.tabSize) ? form.tabSize : request.pluginConfig.getCustomSetting( "shConfig" )["tab-size"] />
+
+<!--- make sure we have a numeric value for tabSize (if not, defaults to current value) --->
+<cfif !isNumeric(form.tabSize)>
+	<cfset form.tabSize = request.pluginConfig.getCustomSetting( "shConfig" )["tab-size"] />
+</cfif>
+
 <cfset shConfig = {
 	'collapse' = form.collapse,
 	'gutter' = form.gutter,
 	'html-script' = form.htmlScript,
 	'smart-tabs' = form.smartTabs,
-	'tab-size' = form.tabSize,
+	'tab-size' = round(form.tabSize),
 	'auto-links' = form.autoLinks
 } />
 
