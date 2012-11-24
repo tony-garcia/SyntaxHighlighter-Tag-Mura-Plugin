@@ -2,6 +2,7 @@
 <cfparam name="url.updated" default="false" />
 <cfset theme = request.pluginConfig.getCustomSetting( "shTheme","Default" ) />
 <cfset shConfig = request.pluginConfig.getCustomSetting("shConfig") />
+<cfset shStrings = request.pluginConfig.getCustomSetting("shStrings") />
 <h3>Settings</h3>
 <cfif url.updated>
 	<div class="success alert alert-success">
@@ -30,7 +31,7 @@
 			<p></p>
 			<strong>Preview:</strong><br />
 			<div id="themePreview">		
-				<pre class="brush: cf">
+				<pre class="brush: cf; collapse: false;">
 			&lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
 				&lt;cfargument name=&quot;$&quot;&gt;
 				&lt;cfset pluginConfig.addToHTMLHeadQueue(&quot;includes/htmlhead.cfm&quot;) /&gt;
@@ -89,6 +90,21 @@
 		<dd>
 			<label class="radio inline" for="rdAutoLinksTrue"><input type="radio" id="rdAutoLinksTrue" name="autoLinks" value="true"<cfif shConfig["auto-links"] eq "true"> checked</cfif> /> Yes</label>
 			<label class="radio inline" for="rdAutoLinksFalse"><input type="radio" id="rdAutoLinksFalse" name="autoLinks" value="false"<cfif shConfig["auto-links"] eq "false"> checked</cfif> /> No</label>
+		</dd>
+		<dt>
+			Strings (localize/change displayed strings):
+		</dt>
+		<dd>
+			<cfoutput>
+				Expand Source:<br /> 
+				<input type="text" name="expandSource" value="#shStrings['expandSource']#" /><br />
+				Info Link:<br />
+				<input type="text" name="help" value="#shStrings['help']#" /><br />
+				No Brush:<br />
+				<input type="text" name="noBrush" value="#shStrings['noBrush']#" size="40" /><br />
+				Brush not HTML-Script Enabled:<br />
+				<input type="text" name="brushNotHtmlScript" value="#shStrings['brushNotHtmlScript']#" size="50" />
+			</cfoutput>
 		</dd>
 	</dl>
 	<input type="hidden" name="action" value="updateSettings" />		

@@ -1,4 +1,5 @@
 ﻿<cfset shConfig = request.pluginConfig.getCustomSetting("shConfig",structNew()) />
+<cfset shStrings = request.pluginConfig.getCustomSetting("shStrings",structNew()) />
 <cfoutput>
 <!--- only override config values if they don't equal the default value --->
 <script type="text/javascript">
@@ -20,6 +21,18 @@
 	</cfif>
 	<cfif structKeyExists( shConfig,"auto-links" ) and shConfig["auto-links"] neq "true">
 		SyntaxHighlighter.defaults['auto-links'] = #shConfig["auto-links"]#;
+	</cfif>
+	<cfif structKeyExists( shStrings,"expandSource" ) and shStrings["expandSource"] neq "+ expand source">
+		SyntaxHighlighter.config.strings.expandSource = '#shStrings["expandSource"]#';
+	</cfif>
+	<cfif structKeyExists( shStrings,"help" ) and shStrings["help"] neq "?">
+		SyntaxHighlighter.config.strings.help = '#shStrings["help"]#';
+	</cfif>
+	<cfif structKeyExists( shStrings,"noBrush" ) and shStrings["noBrush"] neq "Can't find brush for:">
+		SyntaxHighlighter.config.strings.noBrush = '#shStrings["noBrush"]#';
+	</cfif>
+	<cfif structKeyExists( shStrings,"brushNotHtmlScript" ) and shStrings["brushNotHtmlScript"] neq "Brush wasn't made for html-script option:">
+		SyntaxHighlighter.config.strings.brushNotHtmlScript = '#shStrings["brushNotHtmlScript"]#';
 	</cfif>
 </script>
 <script type="text/javascript" src="/plugins/#request.pluginConfig.getDirectory()#/assets/js/shLoader.js"></script>
