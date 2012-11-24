@@ -10,20 +10,21 @@
 	Version 1.0 (November 23, 2012)
  --->
  
-<cfparam name="url.updated" default="false" />
+<cfset pSession = request.pluginConfig.getSession() />
 <cfset theme = request.pluginConfig.getCustomSetting( "shTheme","Default" ) />
 <cfset shConfig = request.pluginConfig.getCustomSetting("shConfig") />
 <cfset shStrings = request.pluginConfig.getCustomSetting("shStrings") />
 <h3>Settings</h3>
-<cfif url.updated>
+<cfif pSession.valueExists("message") and pSession.getValue("message") neq "">
 	<div class="success alert alert-success">
-		Settings Updated
+		<cfoutput>#pSession.getValue("message")#</cfoutput>
 		<cfif muraVersion gte 6>
 			<a href="#" type="button" class="close alert-dismiss" data-dismiss="alert">
 				<i class="icon-remove-sign"></i>
 			</a>
 		</cfif>
 	</div>
+	<cfset pSession.removeValue("message") />
 </cfif>
 <form method="post" action="includes/saveSettings.cfm">
 	<dl class="oneColumn">

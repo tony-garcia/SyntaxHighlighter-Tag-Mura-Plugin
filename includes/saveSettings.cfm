@@ -35,4 +35,5 @@
 <cfset request.pluginConfig.setCustomSetting( "shConfig",shConfig ) />
 <cfset request.pluginConfig.setCustomSetting( "shStrings",shStrings ) />
 <cfset request.pluginConfig.setCustomSetting( "shTheme",form.shTheme ) />
-<cflocation url="/plugins/#request.pluginConfig.getDirectory()#/index.cfm?updated=true" addtoken="false" />
+<cfset request.pluginConfig.getSession().setValue("message","Settings Updated") />
+<cflocation url="/plugins/#request.pluginConfig.getDirectory()#/index.cfm" addtoken="false" />
