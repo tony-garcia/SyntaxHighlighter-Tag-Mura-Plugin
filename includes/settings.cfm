@@ -1,4 +1,15 @@
-﻿
+﻿<!--- 
+	LICENSE INFORMATION:
+	
+	Copyright (c) 2012 Tony Garcia
+	Licensed under the MIT License (http://mit-license.org)
+	
+	VERSION INFORMATION:
+	
+	This file is part of SyntaxHighlighter Tag Mura Plugin
+	Version 1.0 (November 23, 2012)
+ --->
+ 
 <cfparam name="url.updated" default="false" />
 <cfset theme = request.pluginConfig.getCustomSetting( "shTheme","Default" ) />
 <cfset shConfig = request.pluginConfig.getCustomSetting("shConfig") />

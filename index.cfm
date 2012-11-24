@@ -1,5 +1,13 @@
 <!--- 
-	Plugin: SyntaxHighlighter
+	LICENSE INFORMATION:
+	
+	Copyright (c) 2012 Tony Garcia
+	Licensed under the MIT License (http://mit-license.org)
+	
+	VERSION INFORMATION:
+	
+	This file is part of SyntaxHighlighter Tag Mura Plugin
+	Version 1.0 (November 23, 2012)
  --->
 
 <cfinclude template="plugin/config.cfm" />

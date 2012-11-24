@@ -1,4 +1,16 @@
-﻿<cfcomponent extends="mura.plugin.pluginGenericEventHandler">
+﻿<!--- 
+	LICENSE INFORMATION:
+	
+	Copyright (c) 2012 Tony Garcia
+	Licensed under the MIT License (http://mit-license.org)
+	
+	VERSION INFORMATION:
+	
+	This file is part of SyntaxHighlighter Tag Mura Plugin
+	Version 1.0 (November 23, 2012)
+ --->
+
+<cfcomponent extends="mura.plugin.pluginGenericEventHandler">
 	
 	<cffunction name="onApplicationLoad" access="public" returntype="void" output="false">
 		<cfargument name="$" type="any" />

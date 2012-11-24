@@ -1,4 +1,16 @@
-﻿<h3>Documentation</h3>
+﻿<!--- 
+	LICENSE INFORMATION:
+	
+	Copyright (c) 2012 Tony Garcia
+	Licensed under the MIT License (http://mit-license.org)
+	
+	VERSION INFORMATION:
+	
+	This file is part of SyntaxHighlighter Tag Mura Plugin
+	Version 1.0 (November 23, 2012)
+ --->
+ 
+<h3>Documentation</h3>
 
 <p>The SyntaxHighlighter Tag plugin allows you to easily include code snippets in your content using <a href="http://alexgorbatchev.com/SyntaxHighlighter/">Alex Gorbatchev's 
 SyntaxHighligher 3.083 Script.</a></p>
@@ -22,7 +34,7 @@ selecting and copy-to-clipboard, and more. <a href="http://alexgorbatchev.com/Sy
     <td>lang</td>
     <td>yes</td>
     <td>&nbsp;</td>
-    <td class="varWidth">Language brush to use. <a href="##">See list of abbreviations for languages.</a>
+    <td class="varWidth">Language brush to use. <a href="#languages">Click to see list of abbreviations for languages.</a>
     </td>
   </tr>
   <tr>
@@ -209,7 +221,7 @@ text (either the title of the code block, if specified, or default text:</p>
 			
 <p><strong>Other Options</strong>: You can also control things like the first line number and whether the gutter with line numbers shows at all:</p>
 <pre>
-[code lang='cf' highlight='3' title='OnRenderStart Code' first-line='6']
+[code lang='cf' title='OnRenderStart Code' first-line='6']
 &lt;!--- The first line is 6 instead of 1 ---&gt;
 &lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
   &lt;cfargument name=&quot;$&quot;&gt;
@@ -230,7 +242,7 @@ text (either the title of the code block, if specified, or default text:</p>
 [/code]
 </pre><br />
 			
-<pre class="brush: cf; highlight: 3; title: 'OnRenderStart Code';first-line: 6">
+<pre class="brush: cf; title: 'OnRenderStart Code';first-line: 6">
 &lt;!--- The first line is 6 instead of 1 ---&gt;
 &lt;cffunction name=&quot;onRenderStart&quot; access=&quot;public&quot; output=&quot;false&quot; returntype=&quot;any&quot;&gt;
 	&lt;cfargument name=&quot;$&quot;&gt;
@@ -252,4 +264,5 @@ text (either the title of the code block, if specified, or default text:</p>
 			
 <h3>Important</h3>
 <p>Please follow the syntax of the examples above exactly. Do not put spaces after or before the square brackets, leave one space between each attribute, and surround attribute
-values with <strong>single</strong> quotes.</p>	
+values with <strong>single</strong> quotes.</p>
+

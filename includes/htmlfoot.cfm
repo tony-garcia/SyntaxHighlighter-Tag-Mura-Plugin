@@ -1,4 +1,16 @@
-﻿<cfset shConfig = request.pluginConfig.getCustomSetting("shConfig",structNew()) />
+﻿<!--- 
+	LICENSE INFORMATION:
+	
+	Copyright (c) 2012 Tony Garcia
+	Licensed under the MIT License (http://mit-license.org)
+	
+	VERSION INFORMATION:
+	
+	This file is part of SyntaxHighlighter Tag Mura Plugin
+	Version 1.0 (November 23, 2012)
+ --->
+ 
+<cfset shConfig = request.pluginConfig.getCustomSetting("shConfig",structNew()) />
 <cfset shStrings = request.pluginConfig.getCustomSetting("shStrings",structNew()) />
 <cfoutput>
 <!--- only override config values if they don't equal the default value --->
