@@ -1,15 +1,3 @@
-<!--- 
-	LICENSE INFORMATION:
-	
-	Copyright (c) 2012 Tony Garcia
-	Licensed under the MIT License (http://mit-license.org)
-	
-	VERSION INFORMATION:
-	
-	This file is part of SyntaxHighlighter Tag Mura Plugin
-	Version 1.0 (November 23, 2012)
- --->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
 	<name>SyntaxHighlighter Tag</name>
