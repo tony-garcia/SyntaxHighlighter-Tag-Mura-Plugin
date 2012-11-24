@@ -266,3 +266,114 @@ text (either the title of the code block, if specified, or default text:</p>
 <p>Please follow the syntax of the examples above exactly. Do not put spaces after or before the square brackets, leave one space between each attribute, and surround attribute
 values with <strong>single</strong> quotes.</p>
 
+<h3><a name="languages">Language Abbreviations to use in the Lang Attribute</a></h3>
+<table<cfif muraVersion lt 6> class="mura-table-grid stripe"<cfelse> class="table table-striped table-bordered table-condensed"</cfif>>
+	<tr>
+		<th>Abbreviation(s)</th>
+		<th>Language</th>
+	</tr>
+	<tr>
+		<td>applescript</td>
+		<td>AppleScript</td>
+	</tr>
+	<tr>
+		<td>actionscript3, as3</td>
+		<td>ActionScript 3</td>
+	</tr>
+	<tr>
+		<td>bash, shell</td>
+		<td>Bash/Shell Script</td>
+	</tr>
+	<tr>
+		<td>coldfusion, cf</td>
+		<td>ColdFusion/CFML</td>
+	</tr>
+	<tr>
+		<td>cpp, c</td>
+		<td>C++</td>
+	</tr>
+	<tr>
+		<td>c#, c-sharp, csharp</td>
+		<td>C#</td>
+	</tr>
+	<tr>
+		<td>css</td>
+		<td>CSS</td>
+	</tr>
+	<tr>
+		<td>delphi, pascal</td>
+		<td>Delphi, Pascal</td>
+	</tr>
+	<tr>
+		<td>diff, patch, pas</td>
+		<td>Diff Syntax</td>
+	</tr>
+	<tr>
+		<td>erl, erlang</td>
+		<td>Erlang</td>
+	</tr>
+	<tr>
+		<td>groovy</td>
+		<td>Groovy</td>
+	</tr>
+	<tr>
+		<td>java</td>
+		<td>Java</td>
+	</tr>
+	<tr>
+		<td>javafx, jfx</td>
+		<td>JavaFX</td>
+	</tr>
+	<tr>
+		<td>js, jscript, javascript</td>
+		<td>JavaScript</td>
+	</tr>
+	<tr>
+		<td>perl pl</td>
+		<td>Perl</td>
+	</tr>
+	<tr>
+		<td>php</td>
+		<td>PHP</td>
+	</tr>
+	<tr>
+		<td>text, plain</td>
+		<td>Plain Text</td>
+	</tr>
+	<tr>
+		<td>py, python</td>
+		<td>Python</td>
+	</tr>
+	<tr>
+		<td>powershell, ps, posh</td>
+		<td>PowerShell</td>
+	</tr>
+	<tr>
+		<td>ruby, rails, ror, rb</td>
+		<td>Ruby</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>sass, scss</td>
+		<td>SASS</td>
+	</tr>
+	<tr>
+		<td>scala</td>
+		<td>Scala</td>
+	</tr>
+	<tr>
+		<td>sql</td>
+		<td>SQL</td>
+	</tr>
+	<tr>
+		<td>vb, vbnet</td>
+		<td>Virtual Basic</td>
+	</tr>
+	<tr>
+		<td>xml, xhtml, xslt, html</td>
+		<td>XML / HTML</td>
+	</tr>
+</table>
